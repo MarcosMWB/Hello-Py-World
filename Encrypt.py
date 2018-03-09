@@ -2,10 +2,10 @@ from __future__ import division
 
 
 def check_next(i, s):
-    if not (len(s) % (i + 1)):
+    if len(s) % (i + 1):
         return i + 1
     else:
-        return None
+        return -1
 
 
 def cryptography(s):
