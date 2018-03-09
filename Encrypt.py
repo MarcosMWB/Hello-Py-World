@@ -1,22 +1,32 @@
+from __future__ import division
+
+
+def check_next(i, s):
+    if not (len(s) % (i + 1)):
+        return i + 1
+    else:
+        return None
+
+
 def cryptography(s):
     c = list(s)
     for i in range(0, len(s)):
-        if c[i] == 'a' and c[i + 1] == 's':
+        if c[i] == 'a' and c[check_next(i, s)] == 's':
             c[i] = 'x'
             c[i + 1] = 'a'
 
-        elif c[i] == 'a' and c[i + 1] == 'r':
+        elif c[i] == 'a' and c[check_next(i, s)] == 'r':
             c[i] = 'y'
             c[i + 1] = 'a'
-        elif c[i] == 'ã' and c[i + 1] == 'o':
+        elif c[i] == 'ã' and c[check_next(i, s)] == 'o':
             c[i] = 'x'
             c[i + 1] = 'y'
-        elif c[i] == 'ã' and not c[i + 1] == 'o':
+        elif c[i] == 'ã' and not c[check_next(i, s)] == 'e':
             c[i] = 'x'
             c[i + 1] = 'z'
         elif c[i] == 'A':
             c[i] = '&'
-        elif c[i] == 'a' and not c[i-1] == 'y':
+        elif c[i] == 'a' and (c[i - 1] != 'y' and c[i - 1] != 'x'):
             c[i] = '*'
         elif c[i] == ' ':
             c[i] = '^'
@@ -33,11 +43,11 @@ def cryptography(s):
             if 65 < ord(c[i]) < 88:
                 for j in range(66, 88):
                     if ord(c[i]) == j:
-                        c[i] = chr(ord(c[i])-1)
+                        c[i] = chr(ord(c[i]) - 1)
             else:
                 for j in range(98, 120):
                     if ord(c[i]) == j:
-                        c[i] = chr(ord(c[i])-1)
+                        c[i] = chr(ord(c[i]) - 1)
     s = ''.join([str(s) for s in c])
     return s
 
