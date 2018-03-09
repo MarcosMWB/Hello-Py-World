@@ -29,7 +29,11 @@ def cryptography(s):
         elif c[i] == 'a' and (c[i - 1] != 'y' and c[i - 1] != 'x'):
             c[i] = '*'
         elif c[i] == ' ':
-            c[i] = '^'
+            c[i] = '.'
+        elif c[i] == ',':
+            c[i] = ' '
+        elif c[i] == '.':
+            c[i] = ','
         elif c[i] == 'é':
             c[i] = 'í'
         elif c[i] == 'í':
