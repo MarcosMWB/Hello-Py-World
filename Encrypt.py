@@ -1,6 +1,27 @@
 from __future__ import division
 
 
+def modular_exponential(base, power, mod):
+    if power < 0:
+        return -1
+    base %= mod
+    result = 1
+
+    while power > 0:
+        if power & 1:
+            result = (result * base) % mod
+        power = power >> 1
+        base = (base * base) % mod
+    return result
+
+
+def create_key(key):
+    p = 1
+    for n in range(0, len(key)):
+        p = p * ord(key[n]) + 7
+    return modular_exponential(7, p, 13)
+
+
 def check_next(i, s):
     if len(s) % (i + 1):
         return i + 1
@@ -8,7 +29,7 @@ def check_next(i, s):
         return -1
 
 
-def cryptography(s):
+def cryptography(s, key_var):
     c = list(s)
     for i in range(0, len(s)):
         if c[i] == 'a' and c[check_next(i, s)] == 's':
@@ -47,13 +68,13 @@ def cryptography(s):
             if 65 < ord(c[i]) < 88:
                 for j in range(66, 88):
                     if ord(c[i]) == j:
-                        c[i] = chr(ord(c[i]) - 1)
+                        c[i] = chr(ord(c[i]) - key_var)
             else:
                 for j in range(98, 120):
                     if ord(c[i]) == j:
-                        c[i] = chr(ord(c[i]) - 1)
+                        c[i] = chr(ord(c[i]) - key_var)
     s = ''.join([str(s) for s in c])
     return s
 
 
-print(str(cryptography(input('Type here: '))))
+print(str(cryptography(input('Text: '), create_key(input('Key: ')))))
