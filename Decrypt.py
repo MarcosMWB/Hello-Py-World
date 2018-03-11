@@ -13,13 +13,12 @@ def modular_exponential(base, power, mod):
         return -1
     base %= mod
     result = 1
-
     while power > 0:
         if power & 1:
             result = (result * base) % mod
         power = power >> 1
         base = (base * base) % mod
-    return result + 1
+    return result+1
 
 
 def create_key(key):
@@ -70,7 +69,9 @@ def decryptography(s, key_var):
 
         else:
             c[i] = chr(ord(c[i]) + key_var)
+
         i += 1
+
     s = ''.join([str(s) for s in c])
     return s
 
