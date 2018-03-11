@@ -6,13 +6,12 @@ def modular_exponential(base, power, mod):
         return -1
     base %= mod
     result = 1
-
     while power > 0:
         if power & 1:
             result = (result * base) % mod
         power = power >> 1
         base = (base * base) % mod
-    return result
+    return result + 1
 
 
 def create_key(key):
@@ -32,8 +31,6 @@ def check_next(i, s):
 def cryptography(s, key_var):
     c = list(s)
     i = 0
-    if key_var == 0:
-        key_var = 19
     while i < len(s):
         if c[i] == 'a' and c[check_next(i, s)] == 's':
             c[i] = 'x'
