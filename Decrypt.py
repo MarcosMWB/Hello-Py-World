@@ -31,7 +31,9 @@ def create_key(key):
 
 def decryptography(s, key_var):
     c = list(s)
-    i=0
+    i = 0
+    if key_var == 0:
+        key_var = 19
     while i < len(s):
         if c[i] == 'x' and c[check_next(i, s)] == 'a':
             c[i] = 'a'
