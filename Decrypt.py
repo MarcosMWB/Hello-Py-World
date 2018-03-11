@@ -8,38 +8,47 @@ def check_next(i, s):
         return -1
 
 
-def decryptography(s):
+def modular_exponential(base, power, mod):
+    if power < 0:
+        return -1
+    base %= mod
+    result = 1
+
+    while power > 0:
+        if power & 1:
+            result = (result * base) % mod
+        power = power >> 1
+        base = (base * base) % mod
+    return result
+
+
+def create_key(key):
+    p = 1
+    for n in range(0, len(key)):
+        p = p * ord(key[n]) + 7
+    return modular_exponential(7, p, 13)
+
+
+def decryptography(s, key_var):
     c = list(s)
-    memory = 0
-    for i in range(0, len(s)):
-        if c[i] == 's' and memory == 1:
-            c[i] = 's'
-            memory = 0
-        elif c[i] == 'r' and memory == 1:
-            c[i] = 'r'
-            memory = 0
-        elif c[i] == 'o' and memory == 1:
-            c[i] = 'o'
-            memory = 0
-        elif c[i] == 'e' and memory == 1:
-            c[i] = 'e'
-            memory = 0
-        elif c[i] == 'x' and c[check_next(i, s)] == 'a':
+    i=0
+    while i < len(s):
+        if c[i] == 'x' and c[check_next(i, s)] == 'a':
             c[i] = 'a'
             c[i + 1] = 's'
-            memory = 1
+            i += 1
         elif c[i] == 'y' and c[check_next(i, s)] == 'a':
             c[i] = 'a'
             c[i + 1] = 'r'
-            memory = 1
+            i += 1
         elif c[i] == 'x' and c[check_next(i, s)] == 'y':
             c[i] = 'ã'
             c[i + 1] = 'o'
-            memory = 1
+            i += 1
         elif c[i] == 'x' and c[check_next(i, s)] == 'z':
             c[i] = 'ã'
             c[i + 1] = 'e'
-            memory = 1
+            i += 1
         elif c[i] == '&':
             c[i] = 'A'
         elif c[i] == '*':
@@ -60,9 +69,11 @@ def decryptography(s):
             c[i] = 'ú'
 
         else:
-            c[i] = chr(ord(c[i])+1)
+            c[i] = chr(ord(c[i]) + key_var)
+        i += 1
     s = ''.join([str(s) for s in c])
     return s
 
 
-print(str(decryptography(input('Type here: '))))
+k = create_key(input('Key: '))
+print(str(decryptography(input('Type here: '), k)))
