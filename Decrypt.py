@@ -19,7 +19,7 @@ def modular_exponential(base, power, mod):
             result = (result * base) % mod
         power = power >> 1
         base = (base * base) % mod
-    return result
+    return result + 1
 
 
 def create_key(key):
@@ -32,8 +32,6 @@ def create_key(key):
 def decryptography(s, key_var):
     c = list(s)
     i = 0
-    if key_var == 0:
-        key_var = 19
     while i < len(s):
         if c[i] == 'x' and c[check_next(i, s)] == 'a':
             c[i] = 'a'
@@ -77,5 +75,4 @@ def decryptography(s, key_var):
     return s
 
 
-k = create_key(input('Key: '))
-print(str(decryptography(input('Type here: '), k)))
+print(str(decryptography(input('Type here: '), create_key(input('Key: ')))))
