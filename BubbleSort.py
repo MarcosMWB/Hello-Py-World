@@ -13,12 +13,24 @@ def bubble_sort(d):
 
 def fill_list(c):
     for i in range(0, len(c)):
-        c[i] = input('Number: ')
+        c[i] = input('{0}'.format(i + 1) + st_nd_rd_or_else(i + 1) + ' Number: ')
 
 
 def print_list(b):
     for i in range(0, len(b)):
         print(b[i])
+
+
+def st_nd_rd_or_else(var_int):
+    if var_int == 1 or 1 == var_int % 10 or var_int == 11 or var_int == 12 or var_int == 13:
+        string = "st"
+    elif var_int == 2 or 2 == var_int % 10:
+        string = "nd"
+    elif var_int == 3 or 3 == var_int % 10:
+        string = "rd"
+    else:
+        string = "th"
+    return string
 
 
 size = input('list size: ')
