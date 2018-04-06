@@ -1,4 +1,7 @@
-def position_swap(x, bigger, smaller):
+ /*
+  * .Sort() is better
+  */
+    def position_swap(x, bigger, smaller):
     x[bigger] = int(x[bigger]) + int(x[smaller])
     x[smaller] = int(x[bigger]) - int(x[smaller])
     x[bigger] = int(x[bigger]) - int(x[smaller])
